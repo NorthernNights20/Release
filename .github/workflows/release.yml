@@ -1,0 +1,19 @@
+name: Trigger Coolify Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'version.txt'
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Coolify deployment
+        run: |
+          curl --fail --show-error --silent \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_KEY }}" \
+            "https://coolify.northbound.bitrpg.uk/api/v1/deploy?uuid=octst09s2edywpnkt0w5n27l&force=false"
