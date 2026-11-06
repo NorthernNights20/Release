@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Trigger Coolify deployment
         run: |
-          curl --fail --show-error --silent \
+         curl --fail-with-body --show-error -sS \
+            -X POST \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_KEY }}" \
-            "https://coolify.northbound.bitrpg.uk/api/v1/deploy?uuid=octst09s2edywpnkt0w5n27l&force=false"
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            -d '{"uuid":"octst09s2edywpnkt0w5n27l","force":false}' \
+            "https://coolify.northbound.bitrpg.uk/api/v1/deploy"
